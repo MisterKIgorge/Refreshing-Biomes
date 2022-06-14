@@ -12,9 +12,11 @@ PrefabFiles = {
 	"greatswampaltar",
 	"greattreehealfx",
 	"houndfish",
+	"fumeagator",
 	"swampdeco",
 	"swampshroom",
 	"swamplotus",
+	"fume_fx",
 	--"moonbloom",
 }
 
