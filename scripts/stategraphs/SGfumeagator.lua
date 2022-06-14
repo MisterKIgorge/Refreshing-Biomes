@@ -88,7 +88,7 @@ local states=
 		    	for _, ent in ipairs(ents) do
 		    		if inst:IsNear(ent, ent:GetPhysicsRadius(0) + (TUNING.FUMEAGATOR_ATTACKRANGE + 0.5)) then
 		    			if ent.components.health ~= nil and not ent.components.health:IsDead() then
-		    				SpawnAt("", ent)
+		    				ent.components.health:DoFireDamage(TUNING.FUMEAGATOR_DAMAGE-20, inst, true)
 		    			end
 		    		end
 		    	end

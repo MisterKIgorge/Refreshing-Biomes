@@ -1,39 +1,34 @@
---------------------------------------------------------------------------
-local function MakeFX(name, bank, build, anim, data)
-	local assets =
+local assets =
 {
-    Asset("ANIM", "anim/"..build..".zip"),
+    Asset("ANIM", "anim/fume_fx.zip"),
 }
-	local function fn()
-		local inst = CreateEntity()
 
-		inst.entity:AddTransform()
-		inst.entity:AddAnimState()
-		inst.entity:AddSoundEmitter()
-		inst.entity:AddLight()
-		inst.entity:AddNetwork()
+--------------------------------------------------------------------------
 
-		inst.AnimState:SetBank(bank)
-		inst.AnimState:SetBuild(build)
-		inst.AnimState:PlayAnimation(anim, true)
+local function fn()
+	local inst = CreateEntity()
 
-		inst:AddTag("FX")
+	inst.entity:AddTransform()
+	inst.entity:AddAnimState()
+	inst.entity:AddSoundEmitter()
+	inst.entity:AddLight()
+	inst.entity:AddNetwork()
 
-		inst.entity:SetPristine()
+	inst.AnimState:SetBank("fume_fx")
+	inst.AnimState:SetBuild("fume_fx")
+	inst.AnimState:PlayAnimation("poot")
 
-		if not TheWorld.ismastersim then
-			return inst
-		end
-		
-		if data and data.animqueueover_remove then
-			inst:ListenForEvent("animqueueover", inst.Remove)
-		end
+	inst:AddTag("FX")
 
+	inst.entity:SetPristine()
+
+	if not TheWorld.ismastersim then
 		return inst
 	end
 
-	return Prefab(name, fn, assets)
+	inst:ListenForEvent("animqueueover", inst.Remove)
+
+	return inst
 end
 
-return MakeFX("fume_fx", "fume_fx", "fume_fx", "poot", {animqueueover_remove = true}),
-		MakeFX("fume_cloud", "fume_cloud", "fume_cloud_tile", "idle"),
+return Prefab("fume_fx", fn, assets)

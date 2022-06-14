@@ -90,6 +90,9 @@ local function EnterWaterFn(inst)
 
     --inst.AnimState:SetFloatParams(0.3, 1.0, 0)
     --inst.AnimState:SetDeltaTimeMultiplier(0.75)
+
+	inst._waterdelta = inst:DoPeriodicTask(1, function()
+	end)
 end
 
 local function ExitWaterFn(inst)
@@ -118,6 +121,11 @@ local function ExitWaterFn(inst)
 	if inst._waketask then
 		inst._waketask:Cancel()
 		inst._waketask = nil
+	end
+
+	if inst._waterdelta then
+		inst._waterdelta:Cancel()
+		inst._waterdelta = nil
 	end
 end
 
